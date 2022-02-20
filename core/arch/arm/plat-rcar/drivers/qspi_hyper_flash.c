@@ -288,6 +288,8 @@ static uint32_t init_rpc(void)
 
 	ret = set_rpc_clock_mode(rpc_clock_mode);
 
+// disable soft reset
+#if 0
 	/* Reset RPC */
 	if (ret == FL_DRV_OK) {
 		dataL = 0x00020000U;	/* Bit17 RPC reset */
@@ -303,6 +305,7 @@ static uint32_t init_rpc(void)
 		DMSG("rpc_clock_mode=%d, RPCCKCR=0x%08x",
 			rpc_clock_mode, io_read32((vaddr_t)CPG_RPCCKCR));
 	}
+#endif
 
 	return ret;
 }

@@ -207,7 +207,8 @@ int32_t swdt_stop(void)
 
 		/* Reset mask register setting */
 		reg = io_read32(RST_WDTRSTCR) & SWDT_WDTRSTCR_LOWER_BYTE;
-		reg |= RST_WDTRSTCR_RSTMSK;
+		//reg |= RST_WDTRSTCR_RSTMSK;
+        reg &= ~((uint32_t)1U);
 		io_write32(RST_WDTRSTCR, reg | SWDT_WDTRSTCR_UPPER_BYTE);
 
 		swdt_state = SWDT_STATE_NOACTIVE;
