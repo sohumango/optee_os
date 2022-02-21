@@ -281,17 +281,18 @@ static uint32_t init_rpc_reg_depends_soc(void)
 static uint32_t init_rpc(void)
 {
 	uint32_t ret;
-	uint32_t dataL;
+
+#if 0
+^Iuint32_t dataL;
 	/* wait: tRPH(30us) >= tRP(200ns) + tRH(150ns) */
 	const uint32_t wait_time_us_tRP_margin = 1U;
 	const uint32_t wait_time_us_tRH_margin = 29U;
-
+#endif
 	ret = set_rpc_clock_mode(rpc_clock_mode);
 
-// disable soft reset
-#if 0
 	/* Reset RPC */
 	if (ret == FL_DRV_OK) {
+#if 0
 		dataL = 0x00020000U;	/* Bit17 RPC reset */
 
 		io_write32((vaddr_t)CPG_CPGWPR, ~dataL);
@@ -301,11 +302,10 @@ static uint32_t init_rpc(void)
 		io_write32((vaddr_t)CPG_CPGWPR, ~dataL);
 		io_write32((vaddr_t)CPG_SRSTCLR9, dataL);
 		udelay(wait_time_us_tRH_margin);
-
+#endif
 		DMSG("rpc_clock_mode=%d, RPCCKCR=0x%08x",
 			rpc_clock_mode, io_read32((vaddr_t)CPG_RPCCKCR));
 	}
-#endif
 
 	return ret;
 }
